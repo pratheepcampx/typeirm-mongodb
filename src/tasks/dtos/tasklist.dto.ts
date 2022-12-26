@@ -31,8 +31,6 @@ export class TaskListDto {
   @IsNumber()
   priority: number;
 
-  subTasks: SubTask[];
-
   @IsString()
   createdBy: string;
 

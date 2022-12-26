@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { SubTaskDto } from './dtos/subtask.dto';
 import { TaskListDto } from './dtos/tasklist.dto';
 import { TasksService } from './tasks.service';
@@ -12,10 +12,9 @@ export class TasksController {
     const message = await this.service.createTask(body);
     return message;
   }
-  @Post(':id')
+  @Post(':id/subtask')
   async createSubTask(@Param('id') id: string, @Body() body: SubTaskDto) {
-    const message = await this.service.createSubTask(body, id);
-    return message;
+    return await this.service.createSubTask(body, id);
   }
   @Get()
   async getTask() {
@@ -26,7 +25,12 @@ export class TasksController {
     return this.service.getTasksById(id);
   }
   @Get(':id/subtasks')
-  async getSubTask(@Param('id') id: string) {
+  async getSubTasks(@Param('id') id: string) {
     return this.service.getSubTasksByTask(id);
+  }
+
+  @Delete(':id/deletetask')
+  async deleteById(@Param('id') id: string) {
+    return this.service.deleteTaskById(id);
   }
 }

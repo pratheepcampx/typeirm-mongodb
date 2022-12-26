@@ -18,4 +18,10 @@ export class SubTaskDto {
 
   @IsString()
   taskId: String;
+
+  @IsDate()
+  createdAt: Date;
+
+  @IsDate()
+  updatedAt: Date;
 }

@@ -5,7 +5,10 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { SubTask } from 'src/domain/schemas/sub-tasks.schema';
+import {
+  SubTask,
+  subTaskCollection,
+} from 'src/domain/schemas/sub-tasks.schema';
 import { TaskList } from 'src/domain/schemas/task-list.schema';
 import { SubTaskDto } from './dtos/subtask.dto';
 import { TaskListDto } from './dtos/tasklist.dto';
@@ -27,29 +30,42 @@ export class TasksService {
     return result;
   }
   async getTasksById(id: string) {
-    return await this.SubTaskModel.findById(id);
+    return await this.TaskModel.findById(id);
   }
   async createSubTask(body: SubTaskDto, id: string) {
-    const subTask = new this.SubTaskModel(body);
-    subTask.taskListId = id;
-    return subTask.save();
+    const sTask = new this.SubTaskModel();
+    sTask.title = body.title;
+    sTask.description = body.description;
+    sTask.taskListId = id;
+    console.log(sTask);
+    const result = await sTask.save();
+
+    return result;
   }
 
   async getTasks() {
-    const tasks = await this.TaskModel.find();
-    return tasks;
-  }
-  async getSubTasksByTask(id: String) {
     const res = await this.TaskModel.aggregate([
       {
         $lookup: {
-          from: 'SubTaskModel',
+          from: subTaskCollection,
           localField: '_id',
           foreignField: 'taskListId',
           as: 'SubTasks',
         },
       },
     ]);
+
+    return res;
+  }
+  async getSubTasksByTask(id: String) {
+    const subtasks = await this.SubTaskModel.findOne({ taskListId: id });
+
+    return subtasks;
+  }
+
+  async deleteTaskById(id: String) {
+    const task = this.TaskModel.findById(id);
+    const res = await this.TaskModel.remove(task);
 
     return res;
   }

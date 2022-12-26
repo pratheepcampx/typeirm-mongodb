@@ -9,7 +9,7 @@ export class SubTask extends Document {
   @Prop({ required: true })
   description: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'TaskList' })
+  @Prop({})
   taskListId: TaskList;
 }
 

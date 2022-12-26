@@ -17,7 +17,7 @@ export class TaskList extends Document {
   @Prop({ default: Date.now() })
   createdAt: Date;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'SubTask' })
+  @Prop()
   subTasks: SubTask[];
 
   @Prop({ default: Date.now() })

@@ -13,6 +13,6 @@ export class Blog {
   @Column()
   content: string;
 
-  @ManyToOne(() => User, (user) => user.blogs)
+  @ManyToOne(() => User, (user) => user.blogs, { onDelete: 'SET NULL' })
   user: User;
 }

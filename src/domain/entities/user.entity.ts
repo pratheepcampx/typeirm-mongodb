@@ -29,6 +29,6 @@ export class User {
   @CreateDateColumn()
   createdAt: string;
 
-  @OneToMany(() => Blog, (blog) => blog.user)
+  @OneToMany(() => Blog, (blog) => blog.user, { cascade: true })
   blogs: Blog[];
 }

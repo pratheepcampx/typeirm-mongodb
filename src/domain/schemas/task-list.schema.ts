@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Type } from 'class-transformer';
+import { MongoServerClosedError } from 'mongodb';
 import mongoose, { Document, SchemaTypes, Types } from 'mongoose';
 import { SubTask } from './sub-tasks.schema';
 
@@ -16,9 +17,6 @@ export class TaskList extends Document {
 
   @Prop({ default: Date.now() })
   createdAt: Date;
-
-  @Prop()
-  subTasks: SubTask[];
 
   @Prop({ default: Date.now() })
   updatedAt: Date;

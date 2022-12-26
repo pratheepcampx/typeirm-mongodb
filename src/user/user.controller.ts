@@ -9,7 +9,6 @@ import {
   Put,
   Req,
 } from '@nestjs/common';
-import { PersonalDetails } from 'src/domain/entities/personalDetails.entity';
 import {
   BlogDto,
   CreateUserDto,

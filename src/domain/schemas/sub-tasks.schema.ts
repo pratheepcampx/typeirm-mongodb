@@ -1,5 +1,5 @@
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
+import { Document, SchemaType, SchemaTypes } from 'mongoose';
 import { TaskList } from './task-list.schema';
 
 export class SubTask extends Document {
@@ -10,7 +10,7 @@ export class SubTask extends Document {
   description: string;
 
   @Prop({})
-  taskListId: TaskList;
+  taskListId: string;
 }
 
 export const SubTaskSchema = SchemaFactory.createForClass(SubTask);

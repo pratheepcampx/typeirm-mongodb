@@ -25,8 +25,8 @@ export class TasksController {
   async getTaskById(@Param('id') id: string) {
     return this.service.getTasksById(id);
   }
-  @Get('/subtasks')
-  async getSubTask() {
-    return this.service.getSubTasks();
+  @Get(':id/subtasks')
+  async getSubTask(@Param('id') id: string) {
+    return this.service.getSubTasksByTask(id);
   }
 }
